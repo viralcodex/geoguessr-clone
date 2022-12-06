@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>GeoGuessr</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    
+    #street-view {
+      height: 100%;
+      /* Google inverts the colors if you don't have any billing set up.
+      We can go around this by adding a counter invert filter on top of the street view */
+      --webkit-filter: invert(1);
+    }
+    
+    
+    #floating-panel {
+      opacity: .3;
+      border-radius: 0 0 .5rem .5rem;
+      position: fixed;
+      left: 40%;
+      bottom: 1%;
+      z-index: 5;
+      padding: 0;
+      
+    }
+
+    #floating-panel:hover{
+      opacity: 1;
+      transition: opacity .3s linear;
+    }
+    
+    #container {
+      background-color: #d3d3d3;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 2rem;
+      height: 4rem;
+      align-items: center;
+      border-radius: .5rem .5rem 0 0;
+    }
+    #guess-input {
+      border-radius: .3rem;
+      border-color: azure;
+      padding: 5px;
+      width: 15rem;
+    }
+
+    #guess-btn {
+      border-radius: 0 0 .5rem .5rem;
+      font-weight: 600;
+      color: white;
+      border: none;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+      background-color: rgb(53, 163, 167);
+      width: 20rem;
+      height: 2rem;
+    }
+
+    #guess-btn:active {
+      background-color: rgb(79, 172, 70);
+    }
+
+    #score {
+      background-color: rgb(79, 172, 70);
+      padding: 10px 15px 10px 15px;
+      border-radius: .5rem .5rem .5rem .5rem;
+      position: fixed;
+      top: 0%;
+      left: 42.5%;
+      font-weight: 600;
+      font-size: 20;
+      color: rgb(234, 234, 234);
+    }
+
+    #heading {
+      font-size: 30;
+      font-weight: 600;
+      padding-top: 0;
+    }
+  </style>
+  <script type="text/javascript" src="places.js"></script>
+</head>
+
+<body>
+  <!-- The guess panel on top of the street view -->
+  <div id="floating-panel">
+    <div id="container">
+      <!-- <img
+        src="https://www.flaticon.com/svg/vstatic/svg/143/143960.svg?token=exp=1618227638~hmac=7f9a52aac37975da7d77fac34c73b8cb"
+        alt="icon" width="50px" height="50px"> -->
+      <p id="heading">Guess in which country we are?</p>
+      <input type="text" placeholder="Your guess here..." id="guess-input">
+    </div>
+    <button id="guess-btn" onclick="guess()">Guess</button>
+    <p id="score"></p>
+  </div>
+
+  <!-- Street view -->
+  <div id="street-view"></div>
+
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPCBH9xsifQFd6hIuRCqbWo41irBDnzaM&callback=initialize&libraries=&v=weekly"
+    async></script>
+</body>
+
+</html>
+<!-- AIzaSyCPCBH9xsifQFd6hIuRCqbWo41irBDnzaM -->
+<!-- AIzaSyA1B45hQ9P_zN25o6HNaxC6qL46BCDpam4 -->
